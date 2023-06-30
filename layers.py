@@ -16,16 +16,16 @@ class Dense:
         if self.weights is None:
             self.weights = np.random.rand(size_of_input, self.units) * 2 - 1
 
-        z = self._z(a)
-        a = self._forward_prop(z)
+        z = self.z(a)
+        a = self.forward_prop(z)
 
         return a
 
-    def _z(self, a: np.ndarray):
+    def z(self, a: np.ndarray):
         z = np.matmul(a, self.weights) + self.bias
         return z
 
-    def _forward_prop(self, z: np.ndarray):
+    def forward_prop(self, z: np.ndarray):
         a = self.activation(z)
         return a
 

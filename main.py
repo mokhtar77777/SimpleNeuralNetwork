@@ -14,3 +14,6 @@ model = nn.Sequential(
 )
 
 print(model(x))
+
+model.fit(x, None)
+

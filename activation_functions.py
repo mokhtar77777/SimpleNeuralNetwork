@@ -25,7 +25,10 @@ class Sigmoid:
 
     @staticmethod
     def differentiate(z: np.ndarray):
-        d = np.exp(-z) / ((1 + np.exp(-z)) ** 2)
+        d1 = np.exp(z)
+        d2 = np.multiply(1 + np.exp(-z), 1 + np.exp(-z))
+        d = d1 / d2
+        # d = np.exp(-z) / ((1 + np.exp(-z)) ** 2)
         return d
 
 

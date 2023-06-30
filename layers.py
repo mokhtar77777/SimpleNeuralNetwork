@@ -11,17 +11,22 @@ class Dense:
         self.activation = activation
 
     def __call__(self, a: np.ndarray):
-        size_of_input = a.shape[1]
-
-        if self.weights is None:
-            self.weights = np.random.rand(size_of_input, self.units) * 2 - 1
+        self._adjust_weights(a)
 
         z = self.z(a)
         a = self.forward_prop(z)
 
         return a
 
+    def _adjust_weights(self, a: np.ndarray):
+        size_of_input = a.shape[1]
+
+        if self.weights is None:
+            self.weights = np.random.rand(size_of_input, self.units) * 2 - 1
+
     def z(self, a: np.ndarray):
+        self._adjust_weights(a)
+
         z = np.matmul(a, self.weights) + self.bias
         return z
 
@@ -35,3 +40,6 @@ class Dense:
     def set_weights(self, weights: np.ndarray, bias: np.ndarray):
         self.weights = weights
         self.bias = bias
+
+    def get_num_of_units(self):
+        return self.units

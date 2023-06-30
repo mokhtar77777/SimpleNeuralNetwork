@@ -21,6 +21,7 @@ class Stack:
         self.cur_index += 1
 
     def top(self):
+        assert self.cur_index > 0
         return self.stack[self.cur_index - 1]
 
     def pop(self):

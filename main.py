@@ -13,4 +13,4 @@ model = nn.Sequential(
     ]
 )
 
-print(model.predict(x))
+print(model(x))

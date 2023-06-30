@@ -54,12 +54,25 @@ class Sequential:
         for example_num in range(training_examples):
             z_stack, a_stack = self._create_stacks_fwd_prop(x[example_num])
 
-            self.loss.differentiate(a_stack.top(), y[example_num])
+            dj_da = self.loss.differentiate(a_stack.top(), y[example_num])
 
             for layer in self.layers[::-1]:
-                da_dz = layer.activation.differentiate(z_stack.top())
+                cur_layer_activation = layer.activation
+                cur_layer_units = layer.get_num_of_units()
+                cur_layer_weights, _ = layer.get_weights()
+
+                da_dz = cur_layer_activation.differentiate(z_stack.top())
                 z_stack.pop()
-                print(da_dz, "\n")
+
+                a_stack.pop()
+                dz_dw = np.tile(a_stack.top(), (cur_layer_units, 1))
+
+                dj_db = np.multiply(dj_da.T, da_dz.T)
+                dj_dw = np.multiply(dj_db, dz_dw)
+                dj_dw = dj_dw.T
+                dj_da = dj_da @ (np.multiply(da_dz.T, cur_layer_weights.T))
+
+                print(dj_db, "\n")
 
     def compile(self, loss):
         self.loss = loss

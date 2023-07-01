@@ -1,6 +1,10 @@
 import numpy as np
 from stack import Stack
 
+"""
+This Project is for education purposes. Methods names are inspired from tensorflow
+"""
+
 
 class Sequential:
     def __init__(self, layers: list):

@@ -3,9 +3,16 @@ import numpy as np
 import activation_functions as af
 import neural_network as nn
 from optimizers import GradientDescent
-from losses import BinaryCrossEntropy, MeanSquaredError
+from losses import BinaryCrossEntropy
+
+"""
+This Project is for education purposes. Methods names are inspired from tensorflow
+"""
 
 
+"""
+Only 2 Training Examples are used just to illustrate
+"""
 x = np.array(
     [
         [1, 2],
@@ -19,18 +26,18 @@ y = np.array(
 
 model = nn.Sequential(
     [
-        Dense(units=3, activation=af.Relu()),
+        Dense(units=3, activation=af.Sigmoid()),
         Dense(units=1, activation=af.Sigmoid())
     ]
 )
 
 model.compile(loss=BinaryCrossEntropy(),
-              optimizer=GradientDescent(learning_rate=0.1))
+              optimizer=GradientDescent(learning_rate=0.5))
 
 inference_before_fitting = model(x)
 before_fitting = np.where(inference_before_fitting >= 0.5, 1, 0)
 
-model.fit(x, y, epochs=500)
+model.fit(x, y, epochs=1000)
 
 
 inference_after_fitting = model.predict(x)

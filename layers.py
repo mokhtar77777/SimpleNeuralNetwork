@@ -7,6 +7,9 @@ class Dense:
         self.weights = None
         self.bias = np.random.rand(1, units) * 2 - 1
 
+        self.temp_weights_gradient = None
+        self.temp_bias_gradient = np.zeros(shape=(1, units))
+
         self.units = units
         self.activation = activation
 
@@ -23,6 +26,9 @@ class Dense:
 
         if self.weights is None:
             self.weights = np.random.rand(size_of_input, self.units) * 2 - 1
+
+        if self.temp_weights_gradient is None:
+            self.temp_weights_gradient = np.zeros(shape=(size_of_input, self.units))
 
     def z(self, a: np.ndarray):
         self._adjust_weights(a)

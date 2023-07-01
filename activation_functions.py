@@ -1,5 +1,8 @@
 import numpy as np
 
+MAX_EXP_INPUT = 50
+MIN_EXP_INPUT = -50
+
 
 class Linear:
     def __init__(self):
@@ -20,11 +23,15 @@ class Sigmoid:
         pass
 
     def __call__(self, z: np.ndarray):
+        z = np.where(z >= MAX_EXP_INPUT, MAX_EXP_INPUT, z)
+        z = np.where(z <= MIN_EXP_INPUT, MIN_EXP_INPUT, z)
         a = 1 / (1 + np.exp(-z))
         return a
 
     @staticmethod
     def differentiate(z: np.ndarray):
+        z = np.where(z >= MAX_EXP_INPUT, MAX_EXP_INPUT, z)
+        z = np.where(z <= MIN_EXP_INPUT, MIN_EXP_INPUT, z)
         d1 = np.exp(-z)
         d2 = np.multiply(1 + np.exp(-z), 1 + np.exp(-z))
         d = d1 / d2

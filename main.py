@@ -2,27 +2,40 @@ from layers import Dense
 import numpy as np
 import activation_functions as af
 import neural_network as nn
+from optimizers import GradientDescent
 from losses import BinaryCrossEntropy, MeanSquaredError
 
-x = np.array([[11]])
-y = np.array([1])
 
-layer1 = Dense(units=3, activation=af.Relu())
-# layer2 = Dense(units=2, activation=af.Relu())
-layer3 = Dense(units=1, activation=af.Sigmoid())
-
-model = nn.Sequential(
+x = np.array(
     [
-        # layer1,
-        layer3
+        [1, 2],
+        [0, 0]
     ]
 )
 
-print(model(x), "\n\n\n")
+y = np.array(
+    [[1], [0]]
+)
 
-model.compile(loss=BinaryCrossEntropy())
-model.fit(x, y)
+model = nn.Sequential(
+    [
+        Dense(units=3, activation=af.Sigmoid()),
+        Dense(units=1, activation=af.Sigmoid())
+    ]
+)
 
-print("\n\n\n")
+model.compile(loss=BinaryCrossEntropy(),
+              optimizer=GradientDescent(learning_rate=0.01))
 
-# print(model.number_of_params())
+inference_before_fitting = model(x)
+before_fitting = np.where(inference_before_fitting >= 0.5, 1, 0)
+
+model.fit(x, y, epochs=500)
+
+
+inference_after_fitting = model.predict(x)
+after_fitting = np.where(inference_after_fitting >= 0.5, 1, 0)
+print(f"Inference before fitting:")
+print(before_fitting)
+print(f"Inference after fitting")
+print(after_fitting)

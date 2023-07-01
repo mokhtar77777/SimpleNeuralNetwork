@@ -39,6 +39,9 @@ class Sequential:
         new_weights = self.optimizer(weights, weights_gradient)
         new_bias = self.optimizer(bias, bias_gradient)
 
+        layer.temp_weights_gradient.fill(0)
+        layer.temp_bias_gradient.fill(0)
+
         layer.set_weights(weights=new_weights, bias=new_bias)
 
     def number_of_params(self):

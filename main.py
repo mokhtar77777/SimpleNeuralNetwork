@@ -19,13 +19,13 @@ y = np.array(
 
 model = nn.Sequential(
     [
-        Dense(units=3, activation=af.Sigmoid()),
+        Dense(units=3, activation=af.Relu()),
         Dense(units=1, activation=af.Sigmoid())
     ]
 )
 
 model.compile(loss=BinaryCrossEntropy(),
-              optimizer=GradientDescent(learning_rate=0.01))
+              optimizer=GradientDescent(learning_rate=0.1))
 
 inference_before_fitting = model(x)
 before_fitting = np.where(inference_before_fitting >= 0.5, 1, 0)

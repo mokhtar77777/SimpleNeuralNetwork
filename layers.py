@@ -5,7 +5,7 @@ import activation_functions as af
 class Dense:
     def __init__(self, units, activation=af.Linear()):
         self.weights = None
-        self.bias = np.random.rand(1, units) * 2 - 1
+        self.bias = np.random.rand(1, units)
 
         self.temp_weights_gradient = None
         self.temp_bias_gradient = np.zeros(shape=(1, units))
@@ -25,7 +25,7 @@ class Dense:
         size_of_input = a.shape[1]
 
         if self.weights is None:
-            self.weights = np.random.rand(size_of_input, self.units) * 2 - 1
+            self.weights = np.random.rand(size_of_input, self.units)
 
         if self.temp_weights_gradient is None:
             self.temp_weights_gradient = np.zeros(shape=(size_of_input, self.units))

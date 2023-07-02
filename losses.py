@@ -9,7 +9,8 @@ class MeanSquaredError:
         pass
 
     def __call__(self, a: np.ndarray, y: np.ndarray):
-        mse = np.sum(0.5 * (a - y) ** 2)
+        loss_factor = np.multiply(a - y, a - y)
+        mse = np.sum(0.5 * loss_factor)
         return mse
 
     @staticmethod

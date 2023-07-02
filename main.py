@@ -11,28 +11,32 @@ This Project is for education purposes. Methods names are inspired from tensorfl
 
 
 """
-Only 2 Training Examples are used just to illustrate
+Only 4 Training Examples are used just to illustrate
 """
+
 x = np.array(
     [
         [1, 2],
-        [0, 0]
+        [0, 0],
+        [1, 1],
+        [0, 5]
     ]
 )
 
 y = np.array(
-    [[1], [0]]
+    [[1], [0], [1], [0]]
 )
 
 model = nn.Sequential(
     [
-        Dense(units=3, activation=af.Sigmoid()),
+        Dense(units=10, activation=af.Relu()),
+        Dense(units=3, activation=af.Relu()),
         Dense(units=1, activation=af.Sigmoid())
     ]
 )
 
 model.compile(loss=BinaryCrossEntropy(),
-              optimizer=GradientDescent(learning_rate=0.5))
+              optimizer=GradientDescent(learning_rate=0.2))
 
 inference_before_fitting = model(x)
 before_fitting = np.where(inference_before_fitting >= 0.5, 1, 0)

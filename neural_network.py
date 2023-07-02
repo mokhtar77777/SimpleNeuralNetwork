@@ -18,6 +18,10 @@ class Sequential:
     def __call__(self, x: np.ndarray):
         return self.predict(x)
 
+    def __getitem__(self, item):
+        assert item < self.num_of_layers
+        return self.layers[item]
+
     def _create_stacks_fwd_prop(self, x_example: np.ndarray):
         x_example = np.asmatrix(x_example)
 
